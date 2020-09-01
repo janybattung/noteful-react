@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {Route, Link} from 'react-router-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import NoteListNav from '../NoteListNav/NoteListNav';
-import NotePageNav from '../NotePageNav/NotePageNav';
-import NoteListMain from '../NoteListMain/NoteListMain';
-import NotePageMain from '../NotePageMain/NotePageMain';
-import dummyStore from '../dummy-store';
-import {getNotesForFolder, findNote, findFolder} from '../notes-helpers';
+import NoteListNav from './NoteListNav/NoteListNav';
+import NotePageNav from './NotePageNav/NotePageNav';
+import NoteListMain from './NoteListMain/NoteListMain';
+import NotePageMain from './NotePageMain/NotePageMain';
+import dummyStore from './dummy-store';
+import {getNotesForFolder, findNote, findFolder} from './notes-helpers';
 import './App.css';
 
 class App extends Component {
