@@ -20,7 +20,7 @@ class App extends Component {
         setTimeout(() => this.setState(dummyStore), 600);
     }
 
-    renderNavRoutes() {
+    renderNavRoutes() { //left side
         const {notes, folders} = this.state;
         return (
             <>
@@ -42,7 +42,7 @@ class App extends Component {
                     path="/note/:noteId"
                     render={routeProps => {
                         const {noteId} = routeProps.match.params;
-                        const note = findNote(notes, noteId) || {};
+                        const note = findNote(notes, noteId) || {}; //default to empty obj
                         const folder = findFolder(folders, note.folderId);
                         return <NotePageNav {...routeProps} folder={folder} />;
                     }}
@@ -77,7 +77,7 @@ class App extends Component {
                         }}
                     />
                 ))}
-                <Route
+                <Route //title with description
                     path="/note/:noteId"
                     render={routeProps => {
                         const {noteId} = routeProps.match.params;

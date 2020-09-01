@@ -14,7 +14,7 @@ export default function NoteListMain(props) {
             <Note
               id={note.id}
               name={note.name}
-              modified={note.modified}
+              modified={note.modified || ""} 
             />
           </li>
         )}
