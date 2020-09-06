@@ -10,6 +10,8 @@ import {getNotesForFolder, findNote, findFolder} from './notes-helpers';
 import './App.css';
 import NoteContext from './NoteContext';
 import config from './config';
+import AddFolder from './AddFolder';
+import AddNote from './AddNote';
 
 
 class App extends Component {
@@ -63,7 +65,7 @@ class App extends Component {
         );
     }
 
-    renderMainRoutes() {
+    renderMainRoutes() { // right part
         return (
             <>
                 {['/', '/folder/:folderId'].map(path => (
@@ -75,7 +77,10 @@ class App extends Component {
                     />
                 ))}
                 <Route path="/note/:noteId" component={NotePageMain} />
+                <Route path="/add-folder" component={AddFolder} />
+                <Route path="/add-note" component={AddNote} />
             </>
+
         );
     }
 
