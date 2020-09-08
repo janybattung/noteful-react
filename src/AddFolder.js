@@ -19,6 +19,11 @@ export default class AddFolder extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         const { name } = this.state;
+        if(!name) {
+            this.setState({error: "All fields are required"})
+            return 
+        }
+
         fetch(`${config.API_ENDPOINT}/folders`, 
         {
             method: 'POST',
@@ -31,6 +36,7 @@ export default class AddFolder extends React.Component {
         
         .then((resp) => {
             console.log(resp);
+            this.props.refetch()
         })
         .catch(error => {
             console.error({error});
@@ -46,7 +52,8 @@ export default class AddFolder extends React.Component {
             <div>
                 <FormError>
                 <form onSubmit={e => this.handleSubmit(e)}>
-                    <h3>Folder Name</h3>
+                    <h3>Create a new folder</h3>
+                    <label>Folder Name</label>
                     <input onChange={e => this.updateName(e.target.value)} /> {/*}update the name in state*/}
                     <button>Submit</button>
                     <ValidationError message={this.state.error}/>

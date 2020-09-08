@@ -6,6 +6,7 @@ import CircleButton from '../CircleButton/CircleButton'
 import NoteContext from '../NoteContext'
 import { getNotesForFolder } from '../notes-helpers'
 import './NoteListMain.css'
+import {faPlus} from '@fortawesome/free-solid-svg-icons'
 
 export default class NoteListMain extends React.Component {
   static defaultProps = {
@@ -39,7 +40,7 @@ export default class NoteListMain extends React.Component {
             type='button'
             className='NoteListMain__add-note-button'
           >
-            <FontAwesomeIcon icon='plus' />
+            <FontAwesomeIcon icon={faPlus} />
             <br />
             Note
           </CircleButton>

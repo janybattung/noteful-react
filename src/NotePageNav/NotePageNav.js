@@ -4,6 +4,7 @@ import CircleButton from '../CircleButton/CircleButton'
 import NoteContext from '../NoteContext'
 import { findNote, findFolder } from '../notes-helpers'
 import './NotePageNav.css'
+import {faChevronLeft} from '@fortawesome/free-solid-svg-icons'
 
 export default class NotePageNav extends React.Component {
   static defaultProps = {
@@ -29,7 +30,7 @@ export default class NotePageNav extends React.Component {
           onClick={() => this.props.history.goBack()}
           className='NotePageNav__back-button'
         >
-          <FontAwesomeIcon icon='chevron-left' />
+          <FontAwesomeIcon icon={faChevronLeft} />
           <br />
           Back
         </CircleButton>

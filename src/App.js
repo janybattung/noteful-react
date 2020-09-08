@@ -5,22 +5,26 @@ import NoteListNav from './NoteListNav/NoteListNav';
 import NotePageNav from './NotePageNav/NotePageNav';
 import NoteListMain from './NoteListMain/NoteListMain';
 import NotePageMain from './NotePageMain/NotePageMain';
-import dummyStore from './dummy-store';
-import {getNotesForFolder, findNote, findFolder} from './notes-helpers';
 import './App.css';
 import NoteContext from './NoteContext';
 import config from './config';
 import AddFolder from './AddFolder';
 import AddNote from './AddNote';
+import {faCheckDouble} from '@fortawesome/free-solid-svg-icons'
 
 
 class App extends Component {
-    state = {
-        notes: [],
-        folders: []
-    };
+    constructor(props) {
+        super()
+        this.state = {
+            notes: [],
+            folders: []
+        }
 
-    componentDidMount() {
+        this.fetchData = this.fetchData.bind(this)
+    }
+
+    fetchData() {
         Promise.all([
             fetch(`${config.API_ENDPOINT}/notes`),
             fetch(`${config.API_ENDPOINT}/folders`)
@@ -39,6 +43,10 @@ class App extends Component {
             .catch(error => {
                 console.error({error});
             });
+    }
+
+    componentDidMount() {
+        this.fetchData()
     }
 
     handleDeleteNote = noteId => {
@@ -77,8 +85,8 @@ class App extends Component {
                     />
                 ))}
                 <Route path="/note/:noteId" component={NotePageMain} />
-                <Route path="/add-folder" component={AddFolder} />
-                <Route path="/add-note" component={AddNote} />
+                <Route path="/add-folder" component={() => <AddFolder refetch={this.fetchData} />} />
+                <Route path="/add-note" component={() => <AddNote refetch={this.fetchData} />} />
             </>
 
         );
@@ -97,7 +105,7 @@ class App extends Component {
                     <header className="App__header">
                         <h1>
                             <Link to="/">Noteful</Link>{' '}
-                            <FontAwesomeIcon icon="check-double" />
+                            <FontAwesomeIcon icon={faCheckDouble} />
                         </h1>
                     </header>
                     <main className="App__main">{this.renderMainRoutes()}</main>

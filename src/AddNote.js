@@ -10,8 +10,10 @@ export default class AddNote extends React.Component {
         this.state = {
             name: '',
             content: '',
-            folderId: ''
+            folderId: '',
+            error: null
         }
+
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
@@ -30,6 +32,11 @@ updateFolder(folderId) { // handlers to update these state properties
 handleSubmit(event) {
     event.preventDefault();
     const {name, content, folderId} = this.state;
+    if(!name || !content || !folderId) {
+        this.setState({error: "All fields are required"})
+        return 
+    }
+    this.setState({error: ""})
     fetch(`${config.API_ENDPOINT}/notes`,
         {
             method: 'POST',
@@ -41,25 +48,28 @@ handleSubmit(event) {
         })
         .then((resp) => {
             console.log(resp);
+            this.props.refetch()
         })
         .catch(error => {
             console.error({error});
             this.setState({error: error.message})
         });
-
-        console.log('Name');
+        this.setState({name: "", content: ""})
 }
-
 render() {
     return(
         <div>
             <FormError>
             <NoteContext.Consumer>
             {(value) => <form onSubmit={e => this.handleSubmit(e)}>
-                <h3>New Note</h3>
-                <input onChange={e => this.updateName(e.target.value)}/>
-                <input onChange={e => this.updateContent(e.target.value)}/>
-                <select onChange={e => this.updateFolder(e.target.value)} >
+                <h3>Create A New Note</h3>
+                <label>Note name</label>
+                <input value={this.state.name} onChange={e => this.updateName(e.target.value)} required/>
+                <label>Note content</label>
+                <input value={this.state.content} onChange={e => this.updateContent(e.target.value)} required/>
+                <label>Note folder</label>
+                <select value={this.state.folderId} onChange={e => this.updateFolder(e.target.value)} >
+                    <option>Select a folder</option>
                     {value.folders.map(folder => {
                         return (<option key={folder.id} value={folder.id}>{folder.name}</option>)
                     })}

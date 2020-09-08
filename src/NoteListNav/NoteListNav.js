@@ -5,6 +5,7 @@ import CircleButton from '../CircleButton/CircleButton'
 import NoteContext from '../NoteContext'
 import { countNotesForFolder } from '../notes-helpers'
 import './NoteListNav.css'
+import {faPlus} from '@fortawesome/free-solid-svg-icons'
 
 export default class NoteListNav extends React.Component {
   static contextType = NoteContext;
@@ -35,7 +36,7 @@ export default class NoteListNav extends React.Component {
             type='button'
             className='NoteListNav__add-folder-button'
           >
-            <FontAwesomeIcon icon='plus' />
+            <FontAwesomeIcon icon={faPlus} />
             <br />
             Folder
           </CircleButton>
