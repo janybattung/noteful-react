@@ -10,7 +10,7 @@ export default class AddNote extends React.Component {
         this.state = {
             name: '',
             content: '',
-            folderId: '',
+            folder_id: '',
             error: null
         }
 
@@ -25,14 +25,14 @@ updateContent(content) { // handlers to update these state properties
     this.setState({content});
 }
 
-updateFolder(folderId) { // handlers to update these state properties
-    this.setState({folderId});
+updateFolder(folder_id) { // handlers to update these state properties
+    this.setState({folder_id});
 }
 
 handleSubmit(event) {
     event.preventDefault();
-    const {name, content, folderId} = this.state;
-    if(!name || !content || !folderId) {
+    const {name, content, folder_id} = this.state;
+    if(!name || !content || !folder_id) {
         this.setState({error: "All fields are required"})
         return 
     }
@@ -44,7 +44,7 @@ handleSubmit(event) {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({name, content, folderId})
+            body: JSON.stringify({name, content, folder_id:folder_id})
         })
         .then((resp) => {
             console.log(resp);
@@ -68,7 +68,7 @@ render() {
                 <label>Note content</label>
                 <input value={this.state.content} onChange={e => this.updateContent(e.target.value)} required/>
                 <label>Note folder</label>
-                <select value={this.state.folderId} onChange={e => this.updateFolder(e.target.value)} >
+                <select value={this.state.folder_id} onChange={e => this.updateFolder(e.target.value)} >
                     <option>Select a folder</option>
                     {value.folders.map(folder => {
                         return (<option key={folder.id} value={folder.id}>{folder.name}</option>)
